@@ -1,0 +1,26 @@
+version: '4.15'
+
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      # - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespw
+      # - POSTGRES_DB=orderhandler
+    ports:
+          - "5432:5432"
+  redis:
+    image: redis:latest
+    command: redis-server
+    ports:
+      - "6379:6379"
+  wkhtmltopdf:
+    image: openlabs/docker-wkhtmltopdf-aas:latest
+    ports:
+      - "8080:80"
+
+
+volumes:
+  postgres_data:
