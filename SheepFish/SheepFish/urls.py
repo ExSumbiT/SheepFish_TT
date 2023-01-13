@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from order_handler.views import run_task, get_status
+from django.conf import settings
+from django.conf.urls.static import static
+from order_handler.views import run_task, get_status, post_order
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("tasks/<task_id>/", get_status, name="get_status"),
     path("tasks/", run_task, name="run_task"),
-]
+    path("order/", post_order, name="post_order"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
