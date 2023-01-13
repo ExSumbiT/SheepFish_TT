@@ -17,4 +17,4 @@ class Check(models.Model):
     order = models.JSONField()
     status = models.CharField(max_length=8, choices=(
         ('new', 'New'), ('rendered', 'Rendered'), ('printed', 'Printed')))
-    pdf_file = models.FileField()
+    pdf_file = models.FileField(upload_to='pdf/')
