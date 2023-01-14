@@ -21,8 +21,8 @@ def html_to_pdf(check_id):
     response = requests.post(url, data=json.dumps(data), headers=headers)
 
     # Save the response contents to a file
-    check.pdf_file = File(
-        response.content, name=f"{check.order['id']}_{check.type}.pdf")
-    check.status = 'rendered'
-    check.save()
+    with open(str(settings.MEDIA_ROOT) + f'\\pdf\\{check.order["id"]}_{check.type}.pdf', 'wb') as f:
+        f.write(response.content)
+        check.status = 'rendered'
+        check.pdf_file = f
     return True
