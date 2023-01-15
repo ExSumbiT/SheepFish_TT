@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from order_handler.views import get_status, post_order
+from order_handler.views import post_order, get_checks, print_check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("tasks/<task_id>/", get_status, name="get_status"),
     path("order/", post_order, name="post_order"),
+    path("checks/", get_checks, name="get_checks"),
+    path("print/<int:number>", print_check, name="print_check")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,7 @@
-from celery.result import AsyncResult
 from .tasks import html_to_pdf
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from .models import Printer, Check
 import json
 
@@ -25,8 +24,15 @@ def generate_checks(data):
         try:
             create_check(printer, data)
         except ValueError:
-            return JsonResponse({"message": "Checks already exists for this order"}, status=400)
+            return JsonResponse({"message": "Checks already exist for this order"}, status=400)
     return JsonResponse({"message": "ok"}, status=201)
+
+
+def get_checks_for_printer(api_key):
+    checks = []
+    for check in Check.objects.filter(printer_id__api_key=api_key).filter(status='rendered'):
+        checks.append(check.to_json())
+    return JsonResponse(checks, safe=False)
 
 
 @require_POST
@@ -36,12 +42,17 @@ def post_order(request):
     return generate_checks(order_json)
 
 
+@require_GET
 @csrf_exempt
-def get_status(request, task_id):
-    task_result = AsyncResult(task_id)
-    result = {
-        "task_id": task_id,
-        "task_status": task_result.status,
-        "task_result": task_result.result
-    }
-    return JsonResponse(result, status=200)
+def get_checks(request):
+    data = json.loads(request.body)
+    return get_checks_for_printer(data['key'])
+
+
+@require_POST
+@csrf_exempt
+def print_check(request, number):
+    check = Check.objects.filter(id=number).first()
+    check.status = 'printed'
+    check.save()
+    return JsonResponse({'message': 'ok'}, status=200)
