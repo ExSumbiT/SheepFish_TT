@@ -6,12 +6,19 @@ from celery import shared_task
 import json
 import requests
 import base64
+import io
 
 
 @shared_task
 def html_to_pdf(check_id):
     check = Check.objects.filter(id=check_id).first()
-    context = {'check': check}
+    total_price = 0
+    dishes = check.order['info'].copy()
+    for dish in dishes:
+        dish['total'] = round(dish['price'] * dish['number'], 2)
+        total_price += dish['total']
+    context = {'check': check, 'total_price': round(
+        total_price, 2), 'dishes': dishes}
     url = 'http://localhost:8080/'
     content = render_to_string('OrderDetails.html', context)
     data = {
@@ -21,8 +28,9 @@ def html_to_pdf(check_id):
     response = requests.post(url, data=json.dumps(data), headers=headers)
 
     # Save the response contents to a file
-    with open(str(settings.MEDIA_ROOT) + f'\\pdf\\{check.order["id"]}_{check.type}.pdf', 'wb') as f:
-        f.write(response.content)
-        check.status = 'rendered'
-        check.pdf_file = f
+
+    check.pdf_file = File(io.BytesIO(response.content),
+                          name=f"{check.order['id']}_{check.type}.pdf")
+    check.status = 'rendered'
+    check.save()
     return True
