@@ -10,17 +10,7 @@ class Printer:
         self.folder = '.\\pdf\\'
 
     def get_checks(self):
-
-        payload = json.dumps({
-            "key": self.api_key
-        })
-        headers = {
-            'Content-Type': 'application/json'
-        }
-
-        response = requests.request(
-            "GET", self.url + '/checks/', headers=headers, data=payload)
-
+        response = requests.get(f'{self.url}/checks/{self.api_key}')
         self.checks = response.json()
 
     def download_pdf(self):
@@ -35,6 +25,6 @@ class Printer:
         requests.post(self.url + f'/print/{check["id"]}')
 
 
-cp1 = Printer('Kqwerty')
+cp1 = Printer('CP1qwerty')
 cp1.get_checks()
 cp1.download_pdf()

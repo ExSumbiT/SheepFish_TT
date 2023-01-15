@@ -21,7 +21,7 @@ from order_handler.views import post_order, get_checks, print_check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("order/", post_order, name="post_order"),
-    path("checks/", get_checks, name="get_checks"),
+    path("order", post_order, name="post_order"),
+    path("checks/<str:key>", get_checks, name="get_checks"),
     path("print/<int:number>", print_check, name="print_check")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

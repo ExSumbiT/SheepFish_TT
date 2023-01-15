@@ -44,9 +44,8 @@ def post_order(request):
 
 @require_GET
 @csrf_exempt
-def get_checks(request):
-    data = json.loads(request.body)
-    return get_checks_for_printer(data['key'])
+def get_checks(request, key):
+    return get_checks_for_printer(key)
 
 
 @require_POST
