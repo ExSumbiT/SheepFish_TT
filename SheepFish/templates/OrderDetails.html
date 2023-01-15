@@ -1,11 +1,22 @@
-<div class="modal-body text-start text-black p-4">
-  <h5 class="modal-title text-uppercase mb-5" id="exampleModalLabel">
-    Order number {{ check.order.id }}
-  </h5>
-  <h4 class="mb-5" style="color: #35558a">{{ check.type }}</h4>
-  <p class="mb-0" style="color: #35558a">Payment summary</p>
+<meta charset="utf-8" />
+<div style="margin: 0 auto; width: 600px">
+  <h3 style="text-align: center">жрачка топ</h3>
+  {% if check.type == 'client' %}
+  <table>
+    <tr>
+      <td><b>Чек №</b></td>
+      <td>{{ check.order.id }}</td>
+    </tr>
+    <tr>
+      <td><b>Час замовлення</b></td>
+      <td>{{ check.order.time }}</td>
+    </tr>
+    <tr>
+      <td><b>Коментар</b></td>
+      <td>{{ check.order.comment }}</td>
+    </tr>
+  </table>
   <hr
-    class="mt-2 mb-4"
     style="
       height: 0;
       background-color: transparent;
@@ -13,24 +24,68 @@
       border-top: 2px dashed #9e9e9e;
     "
   />
-
-  <div class="d-flex justify-content-between">
-    <p class="fw-bold mb-0">Ether Chair(Qty:1)</p>
-    <p class="text-muted mb-0">$1750.00</p>
-  </div>
-
-  <div class="d-flex justify-content-between">
-    <p class="small mb-0">Shipping</p>
-    <p class="small mb-0">$175.00</p>
-  </div>
-
-  <div class="d-flex justify-content-between pb-1">
-    <p class="small">Tax</p>
-    <p class="small">$200.00</p>
-  </div>
-
-  <div class="d-flex justify-content-between">
-    <p class="fw-bold">Total</p>
-    <p class="fw-bold" style="color: #35558a">$2125.00</p>
-  </div>
+  <table style="margin-left: auto; margin-right: auto; width: 100%">
+    <tr>
+      <th>Назва</th>
+      <th>Кількість</th>
+      <th>Ціна</th>
+      <th>Всього</th>
+    </tr>
+    {% for dish in dishes %}
+    <tr style="text-align: center">
+      <td style="text-align: left">{{ dish.name }}</td>
+      <td>{{ dish.number }}</td>
+      <td>{{ dish.price }}</td>
+      <td style="text-align: right">{{ dish.total }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p><span>Всього</span><span style="float: right">{{ total_price }}</span></p>
+  <hr
+    style="
+      height: 0;
+      background-color: transparent;
+      opacity: 0.75;
+      border-top: 2px dashed #9e9e9e;
+    "
+  />
+  <p>
+    <span>До оплати</span><span style="float: right">{{ total_price }}</span>
+  </p>
+  {% elif check.type == 'kitchen' %}
+  <table>
+    <tr>
+      <td><b>Чек №</b></td>
+      <td>{{ check.order.id }}</td>
+    </tr>
+    <tr>
+      <td><b>Час замовлення</b></td>
+      <td>{{ check.order.time }}</td>
+    </tr>
+    <tr>
+      <td><b>Коментар</b></td>
+      <td>{{ check.order.kitchen_comment }}</td>
+    </tr>
+  </table>
+  <hr
+    style="
+      height: 0;
+      background-color: transparent;
+      opacity: 0.75;
+      border-top: 2px dashed #9e9e9e;
+    "
+  />
+  <table style="margin-left: auto; margin-right: auto; width: 100%">
+    <tr>
+      <th>Назва</th>
+      <th>Кількість</th>
+    </tr>
+    {% for dish in dishes %}
+    <tr style="text-align: center">
+      <td style="text-align: left">{{ dish.name }}</td>
+      <td>{{ dish.number }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
 </div>
