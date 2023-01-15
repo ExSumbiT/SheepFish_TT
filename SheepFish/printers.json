@@ -1,0 +1,62 @@
+[
+{
+    "model": "order_handler.printer",
+    "pk": 1,
+    "fields": {
+        "name": "CP1",
+        "api_key": "CP1qwerty",
+        "check_type": "client",
+        "point_id": 123
+    }
+},
+{
+    "model": "order_handler.printer",
+    "pk": 2,
+    "fields": {
+        "name": "KP1",
+        "api_key": "KP1qwerty",
+        "check_type": "kitchen",
+        "point_id": 123
+    }
+},
+{
+    "model": "order_handler.printer",
+    "pk": 3,
+    "fields": {
+        "name": "KP2",
+        "api_key": "K2qwerty",
+        "check_type": "kitchen",
+        "point_id": 12
+    }
+},
+{
+    "model": "order_handler.printer",
+    "pk": 4,
+    "fields": {
+        "name": "CP2",
+        "api_key": "CP2qwerty",
+        "check_type": "client",
+        "point_id": 12
+    }
+},
+{
+    "model": "order_handler.printer",
+    "pk": 5,
+    "fields": {
+        "name": "CP3",
+        "api_key": "CP3qwert",
+        "check_type": "client",
+        "point_id": 1
+    }
+},
+{
+    "model": "order_handler.printer",
+    "pk": 6,
+    "fields": {
+        "name": "KP3",
+        "api_key": "KP3qwerty",
+        "check_type": "kitchen",
+        "point_id": 1
+    }
+}
+]
