@@ -57,3 +57,11 @@ Printer program imitation:
  Replace printer api_key with your own
  > python printer.py
 ```
+
+To view checks in the admin, create a user with the command
+
+```
+ > python .\manage.py createsuperuser
+```
+
+go to the link /admin and log in with the data of the created user
