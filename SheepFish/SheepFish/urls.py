@@ -18,10 +18,15 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from order_handler.views import post_order, get_checks, print_check
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("order", post_order, name="post_order"),
     path("checks/<str:key>", get_checks, name="get_checks"),
-    path("print/<int:number>", print_check, name="print_check")
+    path("print/<int:number>", print_check, name="print_check"),
+    path('docs/', TemplateView.as_view(
+        template_name='Docs.html',
+        extra_context={'schema_url': 'openapi-schema'}
+    ), name='swagger-ui'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
