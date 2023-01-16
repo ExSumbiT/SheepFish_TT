@@ -28,3 +28,7 @@ class Printer:
 cp1 = Printer('CP1qwerty')
 cp1.get_checks()
 cp1.download_pdf()
+
+cp1 = Printer('KP1qwerty')
+cp1.get_checks()
+cp1.download_pdf()
