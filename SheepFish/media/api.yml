@@ -118,7 +118,7 @@ components:
         comment:
           type: string
           example: example comment
-        kithen_comment:
+        kitchen_comment:
           type: string
           example: example kitchen comment
         time:
