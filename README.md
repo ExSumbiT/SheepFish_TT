@@ -10,6 +10,8 @@ Used:
  - wkhtmltopdf
 ```
 
+A description of the available methods is in the [api.yml](SheepFish/media/api.yml) file or at the /docs link
+
 Usage:
 
 ```
@@ -52,6 +54,6 @@ Printer program imitation:
 ```
  > cd SheepFish
  > cd printer_program
-Replace printer api_key with your own
+ Replace printer api_key with your own
  > python printer.py
 ```
